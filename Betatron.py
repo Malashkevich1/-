@@ -1,8 +1,9 @@
+# -*- coding: cp1251 -*-
 import math 
 import pygame, sys 
 from pygame.locals import * 
 
-#x=r*cos(a); y=r*sin(a); a=wt; t 
+#x=r*cos(a); y=r*sin(a); a(угол)=wt; t 
 
 pygame.init() 
 
@@ -25,15 +26,15 @@ circle_2_radius = 250
 circle_2_width = 5
 circle_3_color = (0,0,255) 
 circle_3_pos = (500,384) 
-circle_3_radius = 10 
+circle_3_radius = 5 
 circle_3_width = 0
 circle_4_color = (0,255,0) 
 circle_4_pos = (500,415) 
-circle_4_radius = 10 
+circle_4_radius = 5 
 circle_4_width = 0
 circle_5_color = (255,0,0) 
 circle_5_pos = (500,360) 
-circle_5_radius = 10 
+circle_5_radius = 5 
 circle_5_width = 0
 textpos_1 = (10,10)
 textpos_2 = (10,40)
@@ -52,7 +53,7 @@ v = 0
 #const
 
 r = 200
-a = 10
+a = 1
 c = 299792458
 m_0 = 9.10938356 * 10**-31
 
@@ -79,7 +80,7 @@ while mainLoop:
   pygame.draw.circle(screen, circle_3_color, (circle_3_pos[0] + x, circle_3_pos[1] + y), circle_3_radius, circle_3_width)
   pygame.draw.circle(screen, circle_4_color, (circle_4_pos[0] + x, circle_4_pos[1] + y), circle_4_radius, circle_4_width)
   pygame.draw.circle(screen, circle_5_color, (circle_5_pos[0] + x, circle_5_pos[1] + y), circle_5_radius, circle_5_width)
-  t += 0.0022
+  t += 0.0021
   v += a*t
   b = v/c
   E = (m_0*c*c/math.sqrt(1-b*b-m_0*c*c))*6.241506363094 * 10**12
