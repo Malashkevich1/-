@@ -1,7 +1,7 @@
 # -*- coding: cp1251 -*-
+from pygame.locals import *
 import math 
 import pygame, sys 
-from pygame.locals import * 
 
 #x=r*cos(a); y=r*sin(a); a(угол)=wt; t 
 
@@ -13,11 +13,13 @@ screen = pygame.display.set_mode((windows_width,windows_height),0,32)
 pygame.display.set_caption(windows_title) 
 windows_bgcolor = (255,255,255)
 font = pygame.font.Font(None, 25)
+clock = pygame.time.Clock()
+
 
 mainLoop = True 
 
 #initial data here 
-(circle_1_color, circle_1_pos, circle_1_radius, circle_1_width) = ([0,0,0], [500,384], 100, 5)
+(circle_1_color, circle_1_pos, circle_1_radius, circle_1_width) = ([0,0,0], [500,384], 200, 5)
 (circle_2_color, circle_2_pos, circle_2_radius, circle_2_width) = ([0,0,0], [500,384], 250, 5)
 (circle_3_color, circle_3_pos, circle_3_radius, circle_3_width) = ([0,0,255], [500,384], 5, 0)
 (line_1_color, line_1_start_pos, line_1_end_pos, line_1_width) = ([0,0,0], [733,380], [745,380], 2)
@@ -30,14 +32,18 @@ mainLoop = True
 
 (textpos_1, textpos_2, textpos_3, textpos_4, textpos_5) = ([10,10], [10,40], [10,70], [10,100], [10,130])
 
-(b, E, x, y, t, w, v) = (0, 0, 0, 0, 0, 0, 0)
-
 #const
 
+e = 1.6021764874*10**-19
+U = 0.0000001
 r = 228
-a = 1
 c = 299792458
 m_0 = 9.10938356 * 10**-31
+pi = math.pi
+r_0 = 0.05
+
+(E, x, y, t, w, v, n, a, m, E_l) = (0, 0, 0, 0, 0, 0, 0, 0, m_0, 0)
+
 
 while mainLoop: 
   for event in pygame.event.get(): 
@@ -64,17 +70,24 @@ while mainLoop:
   pygame.draw.line(screen, line_2_color, line_2_start_pos, line_2_end_pos, line_2_width)
   pygame.draw.line(screen, line_3_color, line_3_start_pos, line_3_end_pos, line_3_width)
   pygame.draw.rect(screen, rect_1_color, rect_1_rect, rect_1_width)
+
   #pygame.draw.circle(screen, circle_4_color, (circle_4_pos[0] + x, circle_4_pos[1] + y), circle_4_radius, circle_4_width)
   #pygame.draw.circle(screen, circle_5_color, (circle_5_pos[0] + x, circle_5_pos[1] + y), circle_5_radius, circle_5_width)
-  t += 0.0021
+
+  t += 0.01
+  E_l = U/2*pi*r_0
+  m = m_0/math.sqrt(1-((v*v)/(c*c)))
+  a = (e*E_l)/m
   v += a*t
-  b = v/c
-  E = (m_0*c*c/math.sqrt(1-b*b-m_0*c*c))*6.241506363094 * 10**12
-  w += v/r*0.000264
+  E = 2*pi*r_0*E_l*n
+  w += v/r_0
+  n = w/2*pi*r_0
   x = r*math.cos(w*t)
   y = r*math.sin(w*t)
+
+  clock.tick(50)
   
-  pygame.display.update() 
+  pygame.display.flip() 
   
 pygame.quit() 
 #destroy data here 
