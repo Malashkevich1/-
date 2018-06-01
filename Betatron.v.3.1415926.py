@@ -8,7 +8,7 @@ import pygame, sys
 pygame.init()
 
 (windows_width, windows_height, windows_title) = (1350, 700, "Betatron.v.3.1415926")
-bg = pygame.image.load('фон.jpg')
+bg = pygame.image.load('фон.jpg') #должен быть отдельно скачан
 screen = pygame.display.set_mode((windows_width,windows_height),0,32)
 pygame.display.set_caption(windows_title)
 windows_bgcolor = (255,255,255)
